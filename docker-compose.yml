@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  web:
+    build:
+      context: ./php
+    container_name: php74
+    depends_on:
+      - db
+    volumes:
+      - ./php:/var/www/html/
+    ports:
+      - 8000:80
+  db:
+    container_name: mariadb10
+    image: mariadb:10.5
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: test_db
+      MARIADB_USER: archiitect
+      MARIADB_PASSWORD: s3cret
+    volumes:
+      - ./database/mariadb/datadir:/var/lib/mysql
+    ports:
+      - 3309:3306
